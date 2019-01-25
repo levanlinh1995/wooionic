@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ product.title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+  <ion-card>
+    <ion-slides autoplay="3000" loop="true">
+      <ion-slide *ngFor="let img of product.images">
+        <img [src]="img.src">
+      </ion-slide>
+    </ion-slides>
+    <ion-card-content>
+      <ion-card-title>
+        {{ product.title }}
+        <ion-badge color="danger" *ngFor="let cate of product.categories">
+          {{ cate }}
+        </ion-badge>
+      </ion-card-title>
+      <p [innerHTML]="product.description"></p>
+      <button ion-button icon-start full round>
+        <ion-icon name="cart"></ion-icon>
+        Add to cart
+      </button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
