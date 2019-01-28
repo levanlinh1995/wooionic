@@ -8,6 +8,7 @@ import { MenuPage } from './../pages/menu/menu';
 import { HomePage } from '../pages/home/home';
 import { CategoryBySlugPage } from './../pages/category-by-slug/category-by-slug';
 import { ProductDetailsPage } from './../pages/product-details/product-details';
+import { CartPage } from './../pages/cart/cart';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,8 @@ import { WoocommerceApiProvider } from '../providers/woocommerce-api/woocommerce
     HomePage,
     MenuPage,
     CategoryBySlugPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { WoocommerceApiProvider } from '../providers/woocommerce-api/woocommerce
     HomePage,
     MenuPage,
     CategoryBySlugPage,
-    ProductDetailsPage
+    ProductDetailsPage,
+    CartPage
   ],
   providers: [
     StatusBar,

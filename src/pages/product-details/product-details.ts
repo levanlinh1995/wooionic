@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { WoocommerceApiProvider } from './../../providers/woocommerce-api/woocommerce-api';
+import { NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { WoocommerceApiProvider } from './../../providers/woocommerce-api/woocommerce-api';
+import { CartPage } from './../cart/cart';
 
 @Component({
   selector: 'page-product-details',
@@ -19,10 +20,11 @@ export class ProductDetailsPage {
     private wooApi: WoocommerceApiProvider,
     private storage: Storage,
     public toastCtrl: ToastController,
+    public modalCtrl: ModalController
   ) {
     this.product = this.navParams.get('product');
     console.log(this.product);
-    
+
 
     this.wooApi.WooCommerce.getAsync('products/' + this.product.id + '/reviews').then((data) => {
       this.reviews = JSON.parse(data.body).product_reviews;
@@ -38,7 +40,6 @@ export class ProductDetailsPage {
 
   addToCart(product) {
     this.storage.get('cart').then((data) => {
-      console.log('cart:', data);
       if (data === null || data.length === 0) {
         let data = [];
         data.push({
@@ -49,11 +50,11 @@ export class ProductDetailsPage {
 
         this.storage.set('cart', data).then(() => {
           console.log('cart updated');
+          console.log('cart:', data);
           this.presentUpdatedCartNotification();
         });
 
       } else {
-        console.log('ok');
         let added = 0;
         for (let i = 0; i < data.length; i++) {
           if (data[i].product.id === product.id) {
@@ -74,6 +75,7 @@ export class ProductDetailsPage {
 
         this.storage.set('cart', data).then(() => {
           console.log('cart updated');
+          console.log('cart:', data);
           this.presentUpdatedCartNotification();
         });
       }
@@ -87,6 +89,11 @@ export class ProductDetailsPage {
     });
 
     toast.present();
+  }
+
+  goToCart() {
+    const modal = this.modalCtrl.create(CartPage);
+    modal.present();
   }
 
 }
