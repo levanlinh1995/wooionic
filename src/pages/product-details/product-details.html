@@ -21,7 +21,7 @@
         </ion-badge>
       </ion-card-title>
       <p [innerHTML]="product.description"></p>
-      <button ion-button icon-start full round>
+      <button ion-button icon-start full round (click)="addToCart(product)">
         <ion-icon name="cart"></ion-icon>
         Add to cart
       </button>

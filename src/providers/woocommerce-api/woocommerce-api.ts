@@ -15,8 +15,8 @@ export class WoocommerceApiProvider {
   constructor() {
     this.WooCommerce = new WC({
       url: 'http://wooionic.test',
-      consumerKey: 'ck_65ec114a1601ca4bdc9ece6627e7fbd49c28f821',
-      consumerSecret: 'cs_6eb95278e72406b0174c33b95d01cdec4496641c'
+      consumerKey: 'ck_1d485ebe40f44deb912ef99131ccd8b88c4ad126',
+      consumerSecret: 'cs_114affdea44225ee9e822f483059db9ac5b100c5'
     });
   }
 
