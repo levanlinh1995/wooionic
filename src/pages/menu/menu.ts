@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Nav } from 'ionic-angular';
-import * as WC from 'woocommerce-api';
+import { NavController, NavParams } from 'ionic-angular';
 
+import { WoocommerceApiProvider } from './../../providers/woocommerce-api/woocommerce-api';
 import { CategoryBySlugPage } from './../category-by-slug/category-by-slug';
 import { HomePage } from './../home/home';
 
@@ -11,18 +11,16 @@ import { HomePage } from './../home/home';
 })
 export class MenuPage {
   @ViewChild('content') nav: NavController
-  
+
   homePage: any = HomePage;
   WooCommerce: any;
   categories: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.WooCommerce = new WC({
-      url: 'http://wooionic.test',
-      consumerKey: 'ck_1d485ebe40f44deb912ef99131ccd8b88c4ad126',
-      consumerSecret: 'cs_114affdea44225ee9e822f483059db9ac5b100c5'
-    });
-
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private wooApi: WoocommerceApiProvider
+    ) {
     this.loadCategories();
   }
 
@@ -31,7 +29,7 @@ export class MenuPage {
   }
 
   loadCategories() {
-    this.WooCommerce.getAsync('products/categories').then((data) => {
+    this.wooApi.WooCommerce.getAsync('products/categories').then((data) => {
       let temp: any[] = JSON.parse(data.body).product_categories;
 
       temp.forEach(element => {
@@ -45,7 +43,7 @@ export class MenuPage {
           }
 
           this.categories.push(element);
-        }  
+        }
       });
     }, (error) => {
       console.log(error);

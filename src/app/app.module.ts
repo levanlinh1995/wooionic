@@ -10,6 +10,7 @@ import { ProductDetailsPage } from './../pages/product-details/product-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { WoocommerceApiProvider } from '../providers/woocommerce-api/woocommerce-api';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WoocommerceApiProvider
   ]
 })
 export class AppModule {}

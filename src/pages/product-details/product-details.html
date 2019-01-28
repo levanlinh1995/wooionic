@@ -28,4 +28,45 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card *ngIf="product.attributes.length > 0">
+    <ion-card-header>
+      Specification
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let att of product.attributes">
+          <ion-col col-4>{{ att.name }}</ion-col>
+          <ion-col col-8>
+            <span>{{ att.options.join(', ') }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="reviews.length > 0">
+    <ion-card-header>
+      Reviews
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let review of reviews">
+          <ion-col col-4>
+            <h2>{{ review.reviewer_name }}</h2>
+            <p>
+                <ion-icon name="star" *ngIf="review.rating >= 1"></ion-icon>
+                <ion-icon name="star" *ngIf="review.rating >= 2"></ion-icon>
+                <ion-icon name="star" *ngIf="review.rating >= 3"></ion-icon>
+                <ion-icon name="star" *ngIf="review.rating >= 4"></ion-icon>
+                <ion-icon name="star" *ngIf="review.rating >= 5"></ion-icon>
+            </p>
+          </ion-col>
+          <ion-col col-8>
+            {{ review.review }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

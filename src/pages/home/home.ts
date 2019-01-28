@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, ToastController } from 'ionic-angular';
-import * as WC from 'woocommerce-api';
 
+import { WoocommerceApiProvider } from './../../providers/woocommerce-api/woocommerce-api';
 import { ProductDetailsPage } from './../product-details/product-details';
 @Component({
   selector: 'page-home',
@@ -15,13 +15,11 @@ export class HomePage {
   products: any[];
   loadedMoreProducts: any[];
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
-    this.WooCommerce = new WC({
-      url: 'http://wooionic.test',
-      consumerKey: 'ck_1d485ebe40f44deb912ef99131ccd8b88c4ad126',
-      consumerSecret: 'cs_114affdea44225ee9e822f483059db9ac5b100c5'
-    });
-
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    private wooApi: WoocommerceApiProvider
+    ) {
     this.loadSliderProducts();
     this.loadMoreProducts(null);
   }
@@ -37,7 +35,7 @@ export class HomePage {
   }
 
   loadSliderProducts() {
-    this.WooCommerce.getAsync('products').then((data) => {
+    this.wooApi.WooCommerce.getAsync('products').then((data) => {
       this.products = JSON.parse(data.body).products;
     }, (error) => {
       console.log(error);
@@ -51,7 +49,7 @@ export class HomePage {
       this.page = 2;
       this.loadedMoreProducts = [];
     }
-    this.WooCommerce.getAsync('products?page=' + this.page).then((data) => {
+    this.wooApi.WooCommerce.getAsync('products?page=' + this.page).then((data) => {
       this.loadedMoreProducts = this.loadedMoreProducts.concat(JSON.parse(data.body).products);
 
       if (event) {
@@ -72,7 +70,7 @@ export class HomePage {
       message: 'No more data!',
       duration: 3000
     });
-    
+
     toast.present();
   }
 
